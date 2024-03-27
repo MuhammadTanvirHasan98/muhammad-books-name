@@ -17,7 +17,7 @@ const Hero = () => {
               et a id nisi.
             </p>
             <Link to="/listedBooks">
-            <button className="btn bg-green-500 text-white font-bold">View The List</button>
+            <button className="btn lg:text-xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white">View The List</button>
             </Link>
             
           </div>

@@ -15,7 +15,7 @@ const Books = () => {
   return (
     <div className="mt-10 lg:mt-32">
        <h1 className="text-4xl play font-bold text-center my-2">Books</h1>
-       <hr className="w-1/2 lg:w-1/5 mx-auto bg-green-700 mb-10 border-dashed"/>
+       <hr className="w-1/2 lg:w-1/5 mx-auto border-green-700 mb-10 border-dashed"/>
        <div className="grid lg:grid-cols-3 gap-8">
          {
           cards.map((card,idx)=>(

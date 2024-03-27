@@ -11,6 +11,7 @@ import ListedBooks from './Components/Root/ListedBooks/ListedBooks';
 import PagesToRead from './Components/Root/PagesToRead/PagesToRead';
 import Form from './Components/Root/Form/Form';
 import Reviews from './Components/Root/Reviews/Reviews';
+import BookDetails from './Components/Root/Home/Books/BookDetails/BookDetails';
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<Home/>,
+      },
+      {
+        path:'/book/:bookId',
+        element:<BookDetails/>,
+        loader: ()=> fetch('../public/books.json')
       },
       {
         path:"/listedBooks",
