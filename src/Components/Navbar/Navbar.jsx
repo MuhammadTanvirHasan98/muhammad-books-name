@@ -94,7 +94,7 @@ const Navbar = () => {
             <li> <a className="btn bg-green-400 font-bold text-white">Sign Up</a></li>
             </ul>
           </div>
-          <Link to="/" className="btn lg:text-xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white">Muhammad Books</Link>
+          <Link to="/" className="btn lg:text-2xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white">Muhammad Books Shop</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className=" flex gap-2">

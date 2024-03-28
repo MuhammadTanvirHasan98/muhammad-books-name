@@ -1,16 +1,38 @@
 import { useLoaderData, useParams } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { saveReadBook } from "../../../../../Utility/localStorage";
 
 const BookDetails = () => {
-  
-   const data = useLoaderData();
-   const {bookId} = useParams();
-   const id = parseInt(bookId);
-   console.log(id);
-   const bookInfo = data.find(item => item.bookId == id);
-   console.log(typeof bookInfo);
-   const {bookName, author, image, review, rating, category, tags, publisher, totalPages, yearOfPublishing} = bookInfo;
+  const data = useLoaderData();
+  const { bookId } = useParams();
+  const id = parseInt(bookId);
+  console.log(id);
+  const bookInfo = data.find((item) => item.bookId == id);
+  console.log(typeof bookInfo);
+  const {
+    bookName,
+    author,
+    image,
+    review,
+    rating,
+    category,
+    tags,
+    publisher,
+    totalPages,
+    yearOfPublishing,
+  } = bookInfo;
 
+
+  const handleReadBook = ()=>{
+     saveReadBook(id);
+     toast.success("Book is added to Read List!");
+     toast.success("Book is added to Wishlist!");
+     toast.error("You have already read this books!");
+
+  }
+
+  
   return (
     <div>
       <div className="flex gap-16 my-20">
@@ -24,9 +46,7 @@ const BookDetails = () => {
         </div>
 
         <div className="lg:w-1/2 w-full">
-          <h1 className="text-3xl mb-4 font-bold play">
-            {bookName}
-          </h1>
+          <h1 className="text-3xl mb-4 font-bold play">{bookName}</h1>
           <p>
             By: <span className=" font-semibold">{author}</span>
           </p>
@@ -37,7 +57,7 @@ const BookDetails = () => {
 
           {/* Review */}
           <p>
-            <span className="font-semibold">Review: </span> 
+            <span className="font-semibold">Review: </span>
             {review}
           </p>
 
@@ -45,7 +65,9 @@ const BookDetails = () => {
           <div className="flex items-center gap-4  font-semibold my-4">
             <p>Tags:</p>
 
-            <p className="bg-green-50 p-2 rounded-xl text-green-600">#{tags[0]}</p>
+            <p className="bg-green-50 p-2 rounded-xl text-green-600">
+              #{tags[0]}
+            </p>
             <p className="bg-green-50 p-2 rounded-xl text-green-600">
               #{tags[1]}
             </p>
@@ -77,13 +99,24 @@ const BookDetails = () => {
             </table>
 
             <div className="flex gap-4 mt-4">
-               <button className="btn lg:text-lg border-2 border-gray-400">Read</button>
+              <button
+                onClick={handleReadBook}
+                className="btn lg:text-lg border-2 border-gray-400"
+              >
+                Read
+              </button>
 
-               <button className="btn lg:text-xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white">Wishlist</button>
+              <button
+                onClick={handleReadBook}
+                className="btn lg:text-xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white"
+              >
+                Wishlist
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
