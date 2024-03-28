@@ -3,19 +3,27 @@ import 'react-tabs/style/react-tabs.css';
 import ReadBooks from './ReadBooks/ReadBooks';
 import WishlistBooks from './WishlistBooks/WishlistBooks';
 import { useLoaderData } from 'react-router-dom';
-import { useEffect } from 'react';
-import { getStoredReadBook } from '../../../Utility/localStorage';
+import { useEffect, useState } from 'react';
+import { getStoredBooks } from '../../../Utility/localStorage';
 
 const ListedBooks = () => {
-    
+    const [readBooks, setReadBooks] = useState([]);
+    const [wishlistBooks, setWishlistBooks] = useState([]);
+
      const markedBooks = useLoaderData();
+     
      console.log(markedBooks);
+
      useEffect(()=>{
-        const storedBooksId = getStoredReadBook();
+        const storedReadBooksId = getStoredBooks('read');
+        const storedWishlistBooksId = getStoredBooks('wish-list');
 
         if(markedBooks.length>0){
-           const booksRead = markedBooks.filter(book => storedBooksId.includes(book.bookId) )
-           console.log(booksRead);
+           const booksRead = markedBooks.filter(book => storedReadBooksId.includes(book.bookId));
+           setReadBooks(booksRead);
+
+            const booksWishlist = markedBooks.filter(book => storedWishlistBooksId.includes(book.bookId));
+            setWishlistBooks(booksWishlist);
         }
      },[])
 
@@ -30,13 +38,17 @@ const ListedBooks = () => {
 
     <TabPanel>
       <div className='my-10'>
-        <ReadBooks/>
+        {
+          readBooks.map(book => <ReadBooks key={book.bookId} book={book}/>)
+        }
       </div>
      
     </TabPanel>
     <TabPanel>
       <div className='my-10'>
-        <WishlistBooks/>
+        {
+          wishlistBooks.map(book => <WishlistBooks key={book.bookId} book={book}/>)
+        }
       </div>
     </TabPanel>
   </Tabs>

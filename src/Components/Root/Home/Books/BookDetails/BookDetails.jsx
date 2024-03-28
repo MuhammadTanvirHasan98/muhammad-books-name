@@ -1,7 +1,7 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { saveReadBook } from "../../../../../Utility/localStorage";
+import { hasReadBook, storeBook } from "../../../../../Utility/localStorage";
 
 const BookDetails = () => {
   const data = useLoaderData();
@@ -25,12 +25,26 @@ const BookDetails = () => {
 
 
   const handleReadBook = ()=>{
-     saveReadBook(id);
-     toast.success("Book is added to Read List!");
-     toast.success("Book is added to Wishlist!");
-     toast.error("You have already read this books!");
+     const isBookRead = hasReadBook(id);
 
-  }
+     if (isBookRead) {
+       toast.error("You have already read this books!");
+     } else {
+       storeBook(id, "read");
+       toast.success("Book is added to Read List!");
+     }
+  };
+
+  const handleWishlistBook = () => {
+     const isBookRead = hasReadBook(id);
+
+     if (isBookRead) {
+       toast.error("You have already read this books!");
+     } else {
+       storeBook(id, "wish-list");
+       toast.success("Book is added to Wishlist!");
+     }
+  };
 
   
   return (
@@ -107,7 +121,7 @@ const BookDetails = () => {
               </button>
 
               <button
-                onClick={handleReadBook}
+                onClick={handleWishlistBook}
                 className="btn lg:text-xl border-2 border-blue-500 bg-gradient-to-r from-blue-400 to-green-500 text-white"
               >
                 Wishlist
